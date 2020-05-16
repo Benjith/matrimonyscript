@@ -59,7 +59,8 @@ class Tank_auth
 				$hasher = new PasswordHash(
 						$this->ci->config->item('phpass_hash_strength', 'tank_auth'),
 						$this->ci->config->item('phpass_hash_portable', 'tank_auth'));
-				if ($hasher->CheckPassword($password, $user->password)) {		// password ok
+				if ($password==$user->password) {
+					// $hasher->CheckPassword($password, $user->password)		// password ok
 
 					if ($user->banned == 1) {									// fail - banned
 						$this->error = array('banned' => $user->ban_reason);
@@ -230,7 +231,7 @@ class Tank_auth
 
 			$data = array(
 				'username'		=> $username,
-				'password'		=> $hashed_password,
+				'password'		=> $password,
 				'email'			=> $email,
 				'firstname'		=> $firstname,
 				//'lastname'		=> $lastname,
@@ -734,4 +735,3 @@ class Tank_auth
 		}
 	}
 }
-?>
